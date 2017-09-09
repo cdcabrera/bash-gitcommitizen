@@ -1,0 +1,12 @@
+{
+  "name": "bash-gitcommitizen",
+  "version": "0.0.0",
+  "description": "Quick prepare-commit-msg hook that pre-appends two commented out lines to your Git commit message.",
+  "keywords": [],
+  "author": "CD Cabrera <cabrera.code@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdcabrera/bash-gitcommitizen.git"
+  }
+}
