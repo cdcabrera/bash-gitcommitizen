@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 #
-JSONRESOURCE="https://raw.githubusercontent.com/commitizen/conventional-commit-types/master/index.json"
+JSONRESOURCE=https://raw.githubusercontent.com/commitizen/conventional-commit-types/master/index.jsons
+BCKJSONRESOURCE=https://raw.githubusercontent.com/cdcabrera/bash-gitcommitizen/master/src/types.json
 declare -a TYPEDESCRIPTIONS
 declare -a TYPEKEYS
 #
@@ -12,8 +13,12 @@ setTypes()
   JSON=$(curl -sf $JSONRESOURCE)
 
   if [ -z "$JSON" ]; then
-    echo Commit types JSON failed to load.
-    exit 0
+    JSON=$(curl -sf $BCKJSONRESOURCE)
+
+    if [ -z "$JSON" ]; then
+      echo Commit types JSON failed to load.
+      exit 0
+    fi
   fi
 
   DESCS=$(node -pe '(function(){const arr=[]; let j={}; try{j=JSON.parse(process.argv[1]).types}catch(e){}; Object.keys(j).forEach(function(value, index){arr.push("  "+(index+1)+") "+value+" \t- "+j[value].description)}); return arr.join("~");})()' "$JSON")
@@ -70,6 +75,10 @@ displayTypes()
 
     if [ "$CT" = "q" ] || [ "$TITLE" = "q" ] || [ "$DESC" = "q" ] || [ "$DETAILEDDESC" = "q" ]; then
         exit 1;
+    fi
+
+    if [ "$CT" = "s" ] || [ "$TITLE" = "s" ] || [ "$DESC" = "s" ] || [ "$DETAILEDDESC" = "s" ]; then
+        exit 0;
     fi
 
     if [[ $CT -ge 1 && $CT -le ${#TYPEKEYS[@]} ]]; then

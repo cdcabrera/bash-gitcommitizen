@@ -1,4 +1,4 @@
-# Git Hook for using Commitizen Commit Types
+# Git Hook for Using Commitizen Commit Types
 
 Quick ```prepare-commit-msg``` hook that pre-appends two commented out lines to your Git commit message. Uncomment them
 to use, or ignore and write your own.
